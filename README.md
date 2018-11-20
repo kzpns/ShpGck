@@ -1,5 +1,6 @@
 # ShpGck
-A library for TCPGecko with C#
+A library for [BullyWiiPlaza's TCPGecko](https://github.com/BullyWiiPlaza/tcpgecko) using .NET <br>
+Code based on [TCP Gecko dotNet](https://github.com/Chadderz121/tcp-gecko-dotnet)
 
 ## Example
 ```csharp
@@ -14,18 +15,15 @@ namespace CodeSender
     public static Main(string[] args)
     {
       GckGeckoU gecko = new GckGeckoU();
-      Console.WriteLine("Connecting to tcpgecko server.");
+      Console.WriteLine("Connecting to tcpgecko server...");
       gecko.Connect("192.168.1.1");
       Console.WriteLine("Connected!");
       
       Console.WriteLine("Sending code...");
       gecko.SendCodes(
-        new CafeCodeWriteMemory(0x1004F71C, (byte)0x00) //Home Button Menu Anywhere [Macopride64]
+        new CafeCodeWriteMemory(0x1004F71C, 0, CCValueSize.UInt8) //Home Button Menu Anywhere [Macopride64]
       );
-      Console.WriteLine("Homebutton is enabling everywhere.");
-      Console.ReadKey(false);
-      gecko.ClearCodes();
-      Console.WriteLine("Homebutton isn't enabling everywhere.");
+      Console.WriteLine("Sent code!");
       Console.ReadKey(false);
     }
   }
