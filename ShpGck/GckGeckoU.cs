@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using ShpGck.CafeCode;
 
@@ -23,6 +24,7 @@ namespace ShpGck
         public void Connect(string host)
         {
             Connector.Connect(host, GECKO_PORT);
+            Stream = new GckNetworkStream(Connector.BaseClient);
         }
 
         public void Disconnect()
@@ -34,16 +36,16 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(byte));
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(byte));
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return 0;
             }
-            return Connector.ReadUInt8();
+            return Stream.ReadUInt8();
         }
 
         public sbyte ReadInt8(uint addr)
@@ -55,16 +57,16 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(ushort));
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(ushort));
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return 0;
             }
-            return Connector.ReadUInt16();
+            return Stream.ReadUInt16();
         }
 
         public short ReadInt16(uint addr)
@@ -76,16 +78,16 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(uint));
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(uint));
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return 0;
             }
-            return Connector.ReadUInt32();
+            return Stream.ReadUInt32();
         }
 
         public int ReadInt32(uint addr)
@@ -97,59 +99,59 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(float));
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(float));
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return 0;
             }
-            return Connector.ReadSingle();
+            return Stream.ReadSingle();
         }
 
         public double ReadDouble(uint addr)
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(double));
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(double));
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return 0;
             }
-            return Connector.ReadDouble();
+            return Stream.ReadDouble();
         }
 
         public byte[] ReadBytes(uint addr, int length)
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.ReadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + (uint)length);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.ReadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + (uint)length);
+            Stream.Flush();
 
-            if (Connector.ReadUInt8() == BYTES_ONLY_ZEROS)
+            if (Stream.ReadUInt8() == BYTES_ONLY_ZEROS)
             {
                 return new byte[length];
             }
-            return Connector.ReadBytes(length);
+            return Stream.ReadBytes(length);
         }
 
         public void WriteUInt8(uint addr, byte val)
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.UploadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(byte));
-            Connector.WriteUInt8(val);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(byte));
+            Stream.WriteUInt8(val);
+            Stream.Flush();
         }
 
         public void WriteInt8(uint addr, sbyte val)
@@ -161,11 +163,11 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.UploadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(ushort));
-            Connector.WriteUInt16(val);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(ushort));
+            Stream.WriteUInt16(val);
+            Stream.Flush();
         }
 
         public void WriteInt16(uint addr, short val)
@@ -177,11 +179,11 @@ namespace ShpGck
 		{
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.UploadMemory);
-			Connector.WriteUInt32(addr);
-			Connector.WriteUInt32(addr + sizeof(uint));
-			Connector.WriteUInt32(val);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(uint));
+            Stream.WriteUInt32(val);
+            Stream.Flush();
         }
 
         public void WriteInt32(uint addr, uint val)
@@ -193,44 +195,57 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.UploadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(float));
-            Connector.WriteSingle(val);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(float));
+            Stream.WriteSingle(val);
+            Stream.Flush();
         }
 
         public void WriteDouble(uint addr, double val)
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Connector.WriteCmd(GckCommands.UploadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + sizeof(double));
-            Connector.WriteDouble(val);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + sizeof(double));
+            Stream.WriteDouble(val);
+            Stream.Flush();
         }
 
-        public void WriteBytes(uint addr, byte[] buf, int length = -1)
+        public void WriteBytes(uint addr, byte[] buf)
+        {
+            WriteBytes(addr, buf, buf.Length);
+        }
+
+        public void WriteBytes(uint addr, byte[] buf, int length)
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            if (length < 0)
-            {
-                length = buf.Length;
-            }
-            Connector.WriteCmd(GckCommands.UploadMemory);
-            Connector.WriteUInt32(addr);
-            Connector.WriteUInt32(addr + (uint)length);
-            Connector.WriteBytes(buf, length);
-            Connector.Flush();
+            Stream.WriteCmd(GckCommands.UploadMemory);
+            Stream.WriteUInt32(addr);
+            Stream.WriteUInt32(addr + (uint)length);
+            Stream.WriteBytes(buf, length);
+            Stream.Flush();
+        }
+
+        public uint GetSymbol(string rplName, string symbolName)
+        {
+            byte[] rplNameBytes = Encoding.ASCII.GetBytes(rplName);
+            byte[] symbolNameBytes = Encoding.ASCII.GetBytes(symbolName);
+            Stream.WriteCmd(GckCommands.GetSymbol);
+            Stream.WriteInt32(rplNameBytes.Length + symbolNameBytes.Length);
+            Stream.WriteBytes(rplNameBytes);
+            Stream.WriteBytes(symbolNameBytes);
+            Stream.Flush();
+            return Stream.ReadUInt32();
         }
 
         public uint GetCodeHandlerAddress()
 		{
-            Connector.WriteCmd(GckCommands.GetCodeHandlerAddress);
-            Connector.Flush();
-            return Connector.ReadUInt32();
+            Stream.WriteCmd(GckCommands.GetCodeHandlerAddress);
+            Stream.Flush();
+            return Stream.ReadUInt32();
 		}
 
         public void SendCodes(params CafeCode.CafeCode[] codes)
@@ -304,6 +319,12 @@ namespace ShpGck
         }
 
         protected GckConnector Connector
+        {
+            get;
+            set;
+        }
+
+        protected GckNetworkStream Stream
         {
             get;
             set;

@@ -54,6 +54,7 @@
     <Compile Include="GckException.cs" />
     <Compile Include="GckGeckoU.cs" />
     <Compile Include="GckMemoryRange.cs" />
+    <Compile Include="GckNetworkStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
