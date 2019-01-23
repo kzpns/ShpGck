@@ -1,32 +1,34 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCFollowPointerCode : CafeCode
+    public class CCFollowPointer : CafeCode
     {
-        public const uint DefaultRangeMin = 0x10000000;
-        public const uint DefaultRangeMax = 0x50000000;
+        public static readonly uint DefaultRangeMin = 0x10000000;
+        public static readonly uint DefaultRangeMax = 0x50000000;
 
-        public CCFollowPointerCode(uint addr, uint rangeMin = DefaultRangeMin, uint rangeMax = DefaultRangeMax, bool isPtr = false)
+        public CCFollowPointer(uint addr) : this(addr, false, DefaultRangeMin, DefaultRangeMax)
+        {
+
+        }
+
+        public CCFollowPointer(uint addr, bool isPtr) : this(addr, isPtr, DefaultRangeMin, DefaultRangeMax)
+        {
+
+        }
+
+        public CCFollowPointer(uint addr, bool isPtr, uint rangeMin, uint rangeMax)
         {
             Address = addr;
+            IsPointer = isPtr;
             RangeMin = rangeMin;
             RangeMax = rangeMax;
-            IsPointer = isPtr;
         }
 
-        public CCFollowPointerCode(bool isPtr = true, uint rangeMin = DefaultRangeMin, uint rangeMax = DefaultRangeMax)
-        {
-            Address = 0;
-            RangeMin = rangeMin;
-            RangeMax = rangeMax;
-            IsPointer = isPtr;
-        }
-
-        public byte GetCafeCodeID()
+        public override byte GetCafeCodeID()
         {
             return 0x30;
         }
 
-        public uint[] ToRaw()
+        public override uint[] ToRaw()
         {
             uint[] ret = new uint[4];
             ret[0] = (uint)GetCafeCodeID() << 24;

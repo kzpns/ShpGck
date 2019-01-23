@@ -1,18 +1,18 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCTerminatorCode : CafeCode
+    public class CCTerminator : CafeCode
     {
-        public CCTerminatorCode()
+        public CCTerminator()
         {
 
         }
 
-        public byte GetCafeCodeID()
+        public override byte GetCafeCodeID()
         {
             return 0xD0;
         }
 
-        public uint[] ToRaw()
+        public override uint[] ToRaw()
         {
             return new uint[]
                 { (uint)GetCafeCodeID() << 24, 0xDEADCAFE};

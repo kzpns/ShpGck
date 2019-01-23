@@ -37,24 +37,31 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CafeCode\CCAddOffsetCode.cs" />
-    <Compile Include="CafeCode\CCConditionalEqualCode.cs" />
+    <Compile Include="CafeCode\CCAddOffset.cs" />
+    <Compile Include="CafeCode\CCConditionalEqual.cs" />
+    <Compile Include="CafeCode\CCConditionalGreater.cs" />
+    <Compile Include="CafeCode\CCConditionalGreaterOrEqual.cs" />
+    <Compile Include="CafeCode\CCConditionalLess.cs" />
+    <Compile Include="CafeCode\CCConditionalLessOrEqual.cs" />
+    <Compile Include="CafeCode\CCConditionalLogicalOR.cs" />
     <Compile Include="CafeCode\CCConditionalNotEqual.cs" />
-    <Compile Include="CafeCode\CCExecuteAssemblyCode.cs" />
-    <Compile Include="CafeCode\CCTerminatorCode.cs" />
-    <Compile Include="CafeCode\CCNoOperationCode.cs" />
-    <Compile Include="CafeCode\CCFollowPointerCode.cs" />
-    <Compile Include="CafeCode\CCConditionalANDCode.cs" />
+    <Compile Include="CafeCode\CCExecuteAssembly.cs" />
+    <Compile Include="CafeCode\CCTerminator.cs" />
+    <Compile Include="CafeCode\CCNoOperation.cs" />
+    <Compile Include="CafeCode\CCFollowPointer.cs" />
+    <Compile Include="CafeCode\CCConditionalLogicalAND.cs" />
     <Compile Include="CafeCode\CafeCodeUtils.cs" />
-    <Compile Include="CafeCode\CCWriteMemoryCode.cs" />
+    <Compile Include="CafeCode\CCWriteMemory.cs" />
     <Compile Include="CafeCode\ValueSize.cs" />
-    <Compile Include="CafeCode\ICafeCode.cs" />
+    <Compile Include="CafeCode\CafeCode.cs" />
+    <Compile Include="ExportedSymbol.cs" />
     <Compile Include="GckCommands.cs" />
     <Compile Include="GckConnector.cs" />
     <Compile Include="GckException.cs" />
     <Compile Include="GckGeckoU.cs" />
     <Compile Include="GckMemoryRange.cs" />
     <Compile Include="GckNetworkStream.cs" />
+    <Compile Include="GckServerStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

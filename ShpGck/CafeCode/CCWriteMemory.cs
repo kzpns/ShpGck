@@ -1,13 +1,13 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCConditionalNotEqual : CafeCode
+    public class CCWriteMemory : CafeCode
     {
-        public CCConditionalNotEqual(uint addr, uint val, ValueSize valSize) : this(addr, val, valSize, false)
+        public CCWriteMemory(uint addr, uint val, ValueSize valSize) : this(addr, val, valSize, false)
         {
 
         }
 
-        public CCConditionalNotEqual(uint addr, uint val, ValueSize valSize, bool isPtr)
+        public CCWriteMemory(uint addr, uint val, ValueSize valSize, bool isPtr)
         {
             ValueSize = valSize;
             Address = addr;
@@ -17,18 +17,26 @@
 
         public override byte GetCafeCodeID()
         {
-            return 0x04;
+            return 0x00;
         }
 
         public override uint[] ToRaw()
         {
-            uint[] ret = new uint[4];
-
-            ret[0] = (uint)GetCafeCodeID() << 24;
-            ret[0] |= (uint)(((byte)ValueSize & 0xF) << 16);
-            if (IsPointer)
+            int size = 4;
+            if(IsPointer)
             {
-                ret[0] |= 0x00100000;
+                size = 2;
+            }
+            uint[] ret = new uint[size];
+
+            ret[0] = (uint)GetCafeCodeID() << 24 |
+                (uint)(((byte)ValueSize & 0xF) << 16);
+            if(IsPointer)
+            {
+                ret[0] |= 0x00100000 | 
+                    (Address & 0xFFFF);
+                ret[1] = Value;
+                return ret;
             }
 
             ret[1] = Address;

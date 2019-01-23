@@ -48,7 +48,7 @@ namespace ShpGck
         {
             get
             {
-                return BaseClient.Connected;
+                return BaseClient.Client.Connected;
             }
         }
 

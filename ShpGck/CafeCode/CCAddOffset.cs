@@ -1,18 +1,18 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCAddOffsetCode : CafeCode
+    public class CCAddOffset : CafeCode
     {
-        public CCAddOffsetCode(uint offset)
+        public CCAddOffset(uint offset)
         {
             Offset = offset;
         }
 
-        public byte GetCafeCodeID()
+        public override byte GetCafeCodeID()
         {
             return 0x31;
         }
 
-        public uint[] ToRaw()
+        public override uint[] ToRaw()
         {
             return new uint[]
                 {(uint)GetCafeCodeID() << 24, Offset};

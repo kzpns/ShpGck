@@ -6,10 +6,10 @@ namespace ShpGck
 {
     public class GckNetworkStream
     {
-        public GckNetworkStream(TcpClient client)
+        public GckNetworkStream(GckConnector connector)
         {
             Buffer = new List<byte>();
-            Stream = client.GetStream();
+            Stream = connector.BaseClient.GetStream();
         }
 
         public void BufferClear()
@@ -24,7 +24,7 @@ namespace ShpGck
             BufferClear();
         }
 
-        public void WriteCmd(GckCommands cmd)
+        public void WriteCommand(GckCommands cmd)
         {
             Buffer.Add((byte)cmd);
         }
@@ -32,9 +32,7 @@ namespace ShpGck
         public void WriteBytes(byte[] buf)
         {
             WriteBytes(buf, buf.Length);
-        }
-
-        public void WriteBytes(byte[] buf, int length)
+        }        public void WriteBytes(byte[] buf, int length)
         {
             if (length < 0)
             {
@@ -105,6 +103,26 @@ namespace ShpGck
             Buffer.AddRange(buf);
         }
 
+        public void WriteUInt64(ulong value)
+        {
+            byte[] buf = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(buf);
+            }
+            Buffer.AddRange(buf);
+        }
+
+        public void WriteInt64(long value)
+        {
+            byte[] buf = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(buf);
+            }
+            Buffer.AddRange(buf);
+        }
+
         public void WriteSingle(float val)
         {
             byte[] buf = BitConverter.GetBytes(val);
@@ -136,6 +154,12 @@ namespace ShpGck
         {
             byte[] buf = ReadBytes(sizeof(byte));
             return buf[0];
+        }
+
+        public sbyte ReadInt8()
+        {
+            byte[] buf = ReadBytes(sizeof(sbyte));
+            return Convert.ToSByte(buf[0]);
         }
 
         public ushort ReadUInt16()
@@ -176,6 +200,26 @@ namespace ShpGck
                 Array.Reverse(buf);
             }
             return BitConverter.ToInt32(buf, 0);
+        }
+
+        public ulong ReadUInt64()
+        {
+            byte[] buf = ReadBytes(sizeof(ulong));
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(buf);
+            }
+            return BitConverter.ToUInt64(buf, 0);
+        }
+
+        public long ReadInt64()
+        {
+            byte[] buf = ReadBytes(sizeof(long));
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(buf);
+            }
+            return BitConverter.ToInt64(buf, 0);
         }
 
         public float ReadSingle()

@@ -1,13 +1,13 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCConditionalNotEqual : CafeCode
+    class CCConditionalLessOrEqual : CafeCode
     {
-        public CCConditionalNotEqual(uint addr, uint val, ValueSize valSize) : this(addr, val, valSize, false)
+        public CCConditionalLessOrEqual(uint addr, uint val, ValueSize valSize) : this(addr, val, valSize, false)
         {
 
         }
 
-        public CCConditionalNotEqual(uint addr, uint val, ValueSize valSize, bool isPtr)
+        public CCConditionalLessOrEqual(uint addr, uint val, ValueSize valSize, bool isPtr)
         {
             ValueSize = valSize;
             Address = addr;
@@ -17,7 +17,7 @@
 
         public override byte GetCafeCodeID()
         {
-            return 0x04;
+            return 0x08;
         }
 
         public override uint[] ToRaw()

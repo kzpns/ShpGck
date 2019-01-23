@@ -1,18 +1,18 @@
 ﻿namespace ShpGck.CafeCode
 {
-    public class CCNoOperationCode : CafeCode
+    public class CCNoOperation : CafeCode
     {
-        public CCNoOperationCode()
+        public CCNoOperation()
         {
 
         }
 
-        public byte GetCafeCodeID()
+        public override byte GetCafeCodeID()
         {
             return 0xD1;
         }
 
-        public uint[] ToRaw()
+        public override uint[] ToRaw()
         {
             return new uint[]
                 {(uint)GetCafeCodeID() << 24, 0xDEADC0DE};

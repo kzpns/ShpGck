@@ -2,7 +2,7 @@
 
 namespace ShpGck.CafeCode
 {
-    public class CafeCodeUtils
+    public static class CafeCodeUtils
     {
 
     }

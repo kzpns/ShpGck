@@ -24,8 +24,11 @@ namespace ShpGck
         private UInt32 PHigh;
 
         public AddressType description { get { return PDesc; } }
+
         public Byte id { get { return PId; } }
+
         public UInt32 low { get { return PLow; } }
+
         public UInt32 high { get { return PHigh; } }
 
         public GckMemoryRange(AddressType desc, Byte id, UInt32 low, UInt32 high)

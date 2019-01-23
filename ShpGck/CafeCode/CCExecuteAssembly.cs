@@ -2,9 +2,9 @@
 
 namespace ShpGck.CafeCode
 {
-    public class CCExecuteAssemblyCode : CafeCode
+    public class CCExecuteAssembly : CafeCode
     {
-        public CCExecuteAssemblyCode(params uint[] raw)
+        public CCExecuteAssembly(params uint[] raw)
         {
             if((raw.Length % 2) == 1)
             {
@@ -19,12 +19,12 @@ namespace ShpGck.CafeCode
             }
         }
 
-        public byte GetCafeCodeID()
+        public override byte GetCafeCodeID()
         {
             return 0xC0;
         }
 
-        public uint[] ToRaw()
+        public override uint[] ToRaw()
         {
             uint[] ret = new uint[PPCByteCodes.Length + 2];
             ret[0] = (uint)(GetCafeCodeID() << 24);
