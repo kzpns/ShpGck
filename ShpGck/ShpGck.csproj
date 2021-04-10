@@ -54,15 +54,25 @@
     <Compile Include="CafeCode\CCWriteMemory.cs" />
     <Compile Include="CafeCode\ValueSize.cs" />
     <Compile Include="CafeCode\CafeCode.cs" />
+    <Compile Include="CafeCodeHandler.cs" />
     <Compile Include="ExportedSymbol.cs" />
-    <Compile Include="GckCommands.cs" />
+    <Compile Include="GeckoClient.cs" />
+    <Compile Include="GeckoCommand.cs" />
     <Compile Include="GckConnector.cs" />
     <Compile Include="GckException.cs" />
     <Compile Include="GckGeckoU.cs" />
     <Compile Include="GckMemoryRange.cs" />
     <Compile Include="GckNetworkStream.cs" />
     <Compile Include="GckServerStatus.cs" />
+    <Compile Include="GeckoConverter.cs" />
+    <Compile Include="GeckoMemoryIO.cs" />
+    <Compile Include="GeckoStream.cs" />
+    <Compile Include="GeckoStream_Write.cs" />
+    <Compile Include="IGeckoConnector.cs" />
+    <Compile Include="GeckoMemoryAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tcp\TcpGeckoConnector.cs" />
+    <Compile Include="Tcp\TcpGeckoStream.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

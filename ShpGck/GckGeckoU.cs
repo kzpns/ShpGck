@@ -37,7 +37,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(byte));
             Stream.Flush();
@@ -53,7 +53,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(sbyte));
             Stream.Flush();
@@ -69,7 +69,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(ushort));
             Stream.Flush();
@@ -90,7 +90,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(uint));
             Stream.Flush();
@@ -111,7 +111,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(float));
             Stream.Flush();
@@ -127,7 +127,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(double));
             Stream.Flush();
@@ -143,7 +143,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.ReadMemory);
+            Stream.WriteCommand(GeckoCommand.ReadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + (uint)length);
             Stream.Flush();
@@ -159,7 +159,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(byte));
             Stream.WriteUInt8(val);
@@ -175,7 +175,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(ushort));
             Stream.WriteUInt16(val);
@@ -191,7 +191,7 @@ namespace ShpGck
 		{
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(uint));
             Stream.WriteUInt32(val);
@@ -207,7 +207,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(float));
             Stream.WriteSingle(val);
@@ -218,7 +218,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + sizeof(double));
             Stream.WriteDouble(val);
@@ -234,7 +234,7 @@ namespace ShpGck
         {
             if (!GckMemoryRange.ValidAddress(addr))
                 throw new GckException("Invalid memory range.");
-            Stream.WriteCommand(GckCommands.UploadMemory);
+            Stream.WriteCommand(GeckoCommand.UploadMemory);
             Stream.WriteUInt32(addr);
             Stream.WriteUInt32(addr + (uint)length);
             Stream.WriteBytes(buf, length);
@@ -245,7 +245,7 @@ namespace ShpGck
         {
             byte[] rplNameBytes = Encoding.ASCII.GetBytes(rplName);
             byte[] symbolNameBytes = Encoding.ASCII.GetBytes(symbolName);
-            Stream.WriteCommand(GckCommands.GetSymbol);
+            Stream.WriteCommand(GeckoCommand.GetSymbol);
             Stream.WriteInt32(rplNameBytes.Length + symbolNameBytes.Length);
             Stream.WriteUInt8((byte)rplNameBytes.Length);
             Stream.WriteBytes(rplNameBytes);
@@ -257,7 +257,7 @@ namespace ShpGck
 
         public int GetVersionHash()
         {
-            Stream.WriteCommand(GckCommands.GetVersionHash);
+            Stream.WriteCommand(GeckoCommand.GetVersionHash);
             Stream.Flush();
             return Stream.ReadInt32();
         }
@@ -270,7 +270,7 @@ namespace ShpGck
             }
             uint[] _args = new uint[MAX_RPC_ARGS];
             args.CopyTo(_args, 0);
-            Stream.WriteCommand(GckCommands.RemoteProcudureCode);
+            Stream.WriteCommand(GeckoCommand.RemoteProcudureCode);
             Stream.WriteUInt32(addr);
             foreach(int arg in _args)
             {
@@ -282,7 +282,7 @@ namespace ShpGck
 
         public uint GetCodeHandlerAddress()
 		{
-            Stream.WriteCommand(GckCommands.GetCodeHandlerAddress);
+            Stream.WriteCommand(GeckoCommand.GetCodeHandlerAddress);
             Stream.Flush();
             return Stream.ReadUInt32();
 		}

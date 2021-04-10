@@ -24,7 +24,7 @@ namespace ShpGck
             BufferClear();
         }
 
-        public void WriteCommand(GckCommands cmd)
+        public void WriteCommand(GeckoCommand cmd)
         {
             Buffer.Add((byte)cmd);
         }

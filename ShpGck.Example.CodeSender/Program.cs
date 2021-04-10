@@ -1,4 +1,5 @@
 ﻿using System;
+using ShpGck.Tcp;
 using ShpGck.CafeCode;
 
 namespace ShpGck.Example.CodeSender
@@ -8,17 +9,18 @@ namespace ShpGck.Example.CodeSender
         static void Main(string[] args)
         {
             Console.Write("Wii U's IPv4> ");
-            string ip_addr = Console.ReadLine();
+            string wiiuIp = Console.ReadLine();
 
-            GckGeckoU gck = new GckGeckoU();
-            Console.WriteLine("Connecting tcpgecko server...");
-            gck.Connect(ip_addr);
-            Console.WriteLine("Connected!");
+            Console.WriteLine("Connecting TCPGecko server...");
+            TcpGeckoConnector connector = new TcpGeckoConnector();
+            connector.Connect(wiiuIp);
+            Console.Write("Connected!");
 
-            Console.WriteLine("Sending codes...");
-            gck.SendCodes(
-                new CCWriteMemory(0x1004F71C, 0, ValueSize.UInt8) //Home Button Menu Anywhere [Macopride64])
-                );
+            Console.Write("Sending codes...");
+            GeckoClient client = new GeckoClient(connector);
+            //client.CodeHandler.SendCodes()
+            //new CCWriteMemory(0x1004F71C, 0, ValueSize.UInt8) //Home Button Menu Anywhere [Macopride64])
+            client.Connector.Disconnect();
             Console.WriteLine("Sent!");
             Console.WriteLine("You can use the Home Menu in anywhere.");
 
