@@ -1,6 +1,6 @@
 ﻿namespace ShpGck
 {
-    public enum GckCommands
+    public enum GeckoCommand : byte
     {
         Write8 = 0x01,
         Write16 = 0x02,
